@@ -3,6 +3,7 @@ package com.bushrdd.phoneusage.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ public class VideosListViewAdapter extends RecyclerView.Adapter<VideosListViewAd
     private final String TAG = "VideosListViewAdapter";
 
     private List<VideoData> mData;
+    private IRecyclerviewItemListener mRecyclerviewItemListener;
 
     public VideosListViewAdapter(List<VideoData> data) {
         mData = data;
@@ -36,6 +38,14 @@ public class VideosListViewAdapter extends RecyclerView.Adapter<VideosListViewAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textView.setText(mData.get(position).getName());
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mRecyclerviewItemListener!=null){
+                    mRecyclerviewItemListener.read((String) holder.textView.getText());
+                }
+            }
+        });
     }
 
     @Override
@@ -44,11 +54,22 @@ public class VideosListViewAdapter extends RecyclerView.Adapter<VideosListViewAd
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout layout;
         TextView textView;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            layout = itemView.findViewById(R.id.video_list_item_name_view);
             textView = itemView.findViewById(R.id.video_list_item_name);
         }
+    }
+
+    public interface IRecyclerviewItemListener {
+        void click(int position);
+        void read(String text);
+    }
+
+    public void setRecyclerviewItemListener(IRecyclerviewItemListener recyclerviewItemListener) {
+        mRecyclerviewItemListener = recyclerviewItemListener;
     }
 }

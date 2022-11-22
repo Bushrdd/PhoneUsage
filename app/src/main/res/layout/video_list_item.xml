@@ -13,11 +13,11 @@
         android:src="@mipmap/default_video_bg" />
 
     <LinearLayout
+        android:id="@+id/video_list_item_name_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:alpha="0.3"
-        android:background="@color/white"
+        android:background="@drawable/video_name_bg_selector"
         android:gravity="center">
 
         <TextView
